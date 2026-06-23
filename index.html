@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skwish World</title>
     <style>
-        /* === МИНИМАЛИСТИЧНЫЙ ДИЗАЙН === */
+        /* === ДИЗАЙН В СТИЛЕ PLAYEROK === */
         :root {
-            --bg-color: #ffffff;
-            --surface: #ffffff;
-            --border-color: #e5e5e5;
-            --text-main: #111111;
-            --text-secondary: #666666;
-            --accent: #000000;
-            --accent-hover: #333333;
-            --danger: #d32f2f;
-            --radius: 8px;
+            --bg-color: #121212; /* Глубокий темный фон */
+            --surface: #1e1e1e; /* Цвет карточек */
+            --surface-hover: #252525;
+            --border-color: #2a2a2a;
+            --text-main: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #20D865; /* Фирменный зеленый */
+            --accent-hover: #1cb555;
+            --danger: #ff4747;
+            --radius: 20px;
+            --btn-radius: 14px;
         }
 
         body {
@@ -29,55 +31,51 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* === НАВИГАЦИЯ И ЛЕЙАУТ === */
+        /* === НАВИГАЦИЯ === */
         header {
-            padding: 24px 20px;
-            text-align: center;
-            font-size: 24px;
+            padding: 24px 20px 16px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-color);
         }
 
         .tabs {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 0 20px;
-            border-bottom: 1px solid var(--border-color);
-            background: var(--surface);
+            gap: 12px;
+            padding: 0 20px 16px;
+            background: var(--bg-color);
             position: sticky;
             top: 0;
             z-index: 10;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
         }
+
+        .tabs::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            background: transparent;
-            border: none;
-            padding: 16px 0;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
+            border-radius: 100px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
         }
 
-        .tab-btn:hover {
-            color: var(--text-main);
-        }
-
-        .tab-btn.active {
-            color: var(--text-main);
-            border-bottom: 2px solid var(--accent);
-        }
+        .tab-btn:hover { color: var(--text-main); background: var(--surface-hover); }
+        .tab-btn.active { background: var(--text-main); color: var(--bg-color); border-color: var(--text-main); }
 
         main {
             flex-grow: 1;
-            padding: 30px 20px 100px;
+            padding: 24px 20px 120px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
+            gap: 16px;
             align-content: start;
             max-width: 1200px;
             margin: 0 auto;
@@ -87,58 +85,51 @@
 
         /* === КАРТОЧКИ ЗАДАНИЙ === */
         .task-card {
-            padding: 24px;
+            padding: 20px;
             cursor: pointer;
             background: var(--surface);
-            border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.2s ease, background 0.2s ease;
             position: relative;
         }
 
         .task-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.06);
-            border-color: #d0d0d0;
+            background: var(--surface-hover);
         }
 
-        .task-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+        .task-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
         .task-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         
         .task-status { 
             margin-top: 16px; 
-            font-size: 12px; 
+            font-size: 13px; 
             font-weight: 600; 
-            color: var(--text-secondary); 
-            display: flex;
+            color: var(--accent); 
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-        }
-        .task-status::before {
-            content: "";
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--accent);
+            background: rgba(32, 216, 101, 0.1);
+            padding: 6px 12px;
+            border-radius: 8px;
         }
 
-        .task-img { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; margin-top: 16px; border: 1px solid var(--border-color); }
+        .task-img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-top: 16px; }
 
         /* === КНОПКИ === */
         .fab {
             position: fixed;
-            bottom: 60px;
-            right: 30px;
-            width: 56px;
-            height: 56px;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: var(--accent);
-            color: white;
-            font-size: 28px;
-            font-weight: 300;
+            color: #000;
+            font-size: 32px;
+            font-weight: 400;
             border: none;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 24px rgba(32, 216, 101, 0.3);
             cursor: pointer;
             transition: transform 0.2s ease, background 0.2s ease;
             display: flex;
@@ -150,11 +141,11 @@
         .fab:hover { background: var(--accent-hover); transform: scale(1.05); }
 
         .btn {
-            padding: 14px 24px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            font-size: 15px;
-            font-weight: 600;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--btn-radius);
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
             background: var(--surface);
@@ -164,19 +155,21 @@
             box-sizing: border-box;
         }
 
-        .btn:hover { background: #f9f9f9; border-color: #d0d0d0; }
+        .btn:hover { background: var(--surface-hover); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         
-        .btn-primary { background: var(--accent); color: white; border: 1px solid var(--accent); }
-        .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-primary:hover { background: var(--accent-hover); }
         
-        .btn-danger { background: var(--surface); color: var(--danger); border: 1px solid var(--danger); }
-        .btn-danger:hover { background: #fff5f5; }
+        .btn-danger { background: rgba(255, 71, 71, 0.1); color: var(--danger); }
+        .btn-danger:hover { background: rgba(255, 71, 71, 0.2); }
 
         /* === МОДАЛЬНЫЕ ОКНА === */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             display: none;
             align-items: center;
@@ -190,40 +183,41 @@
         .modal-content {
             width: 100%;
             max-width: 480px;
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 32px;
+            background: var(--bg-color);
+            border-radius: 24px;
+            padding: 32px 24px;
             position: relative;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.2);
             box-sizing: border-box;
+            border: 1px solid var(--border-color);
         }
 
         .modal-content.fullscreen {
             max-width: 100%;
             height: 100vh;
             border-radius: 0;
-            padding: 40px 24px;
+            padding: 40px 20px;
             overflow-y: auto;
+            border: none;
         }
 
         .close-btn {
             position: absolute;
-            top: 24px; right: 24px;
-            background: none; border: none;
-            font-size: 20px; cursor: pointer; color: var(--text-secondary);
-            padding: 8px;
-            line-height: 1;
-            transition: color 0.2s;
+            top: 20px; right: 20px;
+            background: var(--surface); border: none;
+            width: 40px; height: 40px; border-radius: 50%;
+            font-size: 18px; cursor: pointer; color: var(--text-secondary);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
         }
-        .close-btn:hover { color: var(--text-main); }
+        .close-btn:hover { background: var(--surface-hover); color: var(--text-main); }
 
         .input-group { margin-bottom: 20px; }
         .input-group input, .input-group textarea {
-            width: 100%; box-sizing: border-box; padding: 14px 16px;
-            border: 1px solid var(--border-color); border-radius: var(--radius);
-            background: var(--surface); font-size: 15px; font-family: inherit;
-            transition: border-color 0.2s ease;
+            width: 100%; box-sizing: border-box; padding: 16px;
+            border: 1px solid var(--border-color); border-radius: var(--btn-radius);
+            background: var(--surface); font-size: 16px; font-family: inherit;
             color: var(--text-main);
+            transition: border-color 0.2s ease;
         }
         .input-group input:focus, .input-group textarea:focus {
             outline: none; border-color: var(--accent);
@@ -233,9 +227,9 @@
         /* === ФУТЕР === */
         footer {
             text-align: center; padding: 20px;
-            background: var(--surface); color: var(--text-secondary);
-            font-weight: 600; cursor: pointer;
-            font-size: 12px; letter-spacing: 1px;
+            background: var(--bg-color); color: var(--text-secondary);
+            font-weight: 700; cursor: pointer;
+            font-size: 13px; letter-spacing: 1px;
             border-top: 1px solid var(--border-color);
             position: fixed; bottom: 0; width: 100%;
             transition: color 0.2s ease;
@@ -246,18 +240,17 @@
         input[type="file"] { display: none; }
         .file-upload-label { 
             display: flex; align-items: center; justify-content: center;
-            padding: 24px; border: 1px dashed #cccccc; 
-            border-radius: var(--radius); cursor: pointer; 
-            margin-bottom: 12px; background: #fafafa;
-            color: var(--text-secondary); font-size: 14px;
+            padding: 24px; border: 2px dashed var(--border-color); 
+            border-radius: var(--btn-radius); cursor: pointer; 
+            margin-bottom: 12px; background: var(--surface);
+            color: var(--text-main); font-size: 15px; font-weight: 600;
             transition: all 0.2s ease;
         }
-        .file-upload-label:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+        .file-upload-label:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* Элементы внутри модального окна полноэкранного */
-        #tm-title { font-size: 28px; margin: 20px 0 16px; letter-spacing: -0.5px; }
+        #tm-title { font-size: 28px; margin: 20px 0 16px; font-weight: 800; }
         #tm-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;}
-        .empty-state { color: var(--text-secondary); text-align: center; width: 100%; padding: 40px 0; font-size: 15px; }
+        .empty-state { color: var(--text-secondary); text-align: center; width: 100%; padding: 40px 0; font-size: 16px; font-weight: 600; }
 
     </style>
 </head>
@@ -266,7 +259,7 @@
     <header>Skwish World</header>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="loadTab('available')">Задания</button>
+        <button class="tab-btn active" onclick="loadTab('available')">Доступные</button>
         <button class="tab-btn" onclick="loadTab('progress')">В процессе</button>
         <button class="tab-btn" onclick="loadTab('global')">Завершенные</button>
     </div>
@@ -277,7 +270,6 @@
 
     <footer onclick="promptAdmin()">SKWISH WORLD</footer>
 
-    <!-- Модальное окно просмотра задания (на весь экран) -->
     <div class="modal-overlay" id="task-modal">
         <div class="modal-content fullscreen">
             <button class="close-btn" onclick="closeModal('task-modal')">✕</button>
@@ -287,60 +279,56 @@
                 
                 <div id="tm-photo-area" style="display: none; margin-top: 30px;">
                     <label class="file-upload-label">
-                        Прикрепить фото результата
+                        + Загрузить скриншот
                         <input type="file" id="tm-photo-input" accept="image/*">
                     </label>
                     <p id="tm-photo-name" style="text-align: center; font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;"></p>
                 </div>
                 
                 <div id="tm-buttons-container" style="margin-top: 40px; padding-bottom: 80px;">
-                    <!-- Кнопки будут генерироваться через JS -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
-    <!-- Модальное окно создания задания -->
     <div class="modal-overlay" id="add-modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('add-modal')">✕</button>
-            <h2 style="margin-top: 0; margin-bottom: 24px; font-size: 20px;">Новое задание</h2>
+            <h2 style="margin-top: 0; margin-bottom: 24px; font-size: 24px; font-weight: 800;">Новое задание</h2>
             <div class="input-group">
-                <input type="text" id="new-task-title" placeholder="Название задания">
+                <input type="text" id="new-task-title" placeholder="Название">
             </div>
             <div class="input-group">
-                <textarea id="new-task-desc" placeholder="Подробное описание"></textarea>
+                <textarea id="new-task-desc" placeholder="Описание задания"></textarea>
             </div>
-            <button class="btn btn-primary" onclick="submitNewTask()">Отправить на проверку</button>
+            <button class="btn btn-primary" id="submit-task-btn" onclick="submitNewTask()">Отправить на проверку</button>
         </div>
     </div>
 
-    <!-- Админ панель -->
     <div class="modal-overlay" id="admin-modal">
         <div class="modal-content fullscreen">
             <button class="close-btn" onclick="closeModal('admin-modal')">✕</button>
             <div style="max-width: 800px; margin: 0 auto;">
-                <h1 style="margin-top: 20px; margin-bottom: 8px;">Админ панель</h1>
-                <p style="color: var(--text-secondary); margin-bottom: 30px;">Задания ожидающие проверки</p>
-                <div id="admin-container" style="display: grid; gap: 20px;"></div>
+                <h1 style="margin-top: 20px; margin-bottom: 8px;">Админка</h1>
+                <p style="color: var(--text-secondary); margin-bottom: 30px;">Ожидают проверки</p>
+                <div id="admin-container" style="display: grid; gap: 16px;"></div>
             </div>
         </div>
     </div>
 
-    <!-- Подключение Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, query, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
+        // !!! ВСТАВЬ СЮДА СВОЙ КОНФИГ ИЗ НАСТРОЕК ПРОЕКТА FIREBASE !!!
         const firebaseConfig = {
             apiKey: "AIzaSyAHdwrLYWdJj4RGlnokF7w6SnjW0cl7-qk",
             authDomain: "skwishworld.firebaseapp.com",
             projectId: "skwishworld",
             storageBucket: "skwishworld.firebasestorage.app",
             messagingSenderId: "703521653990",
-            appId: "1:703521653990:web:a92dc5a49af558aa436727",
-            measurementId: "G-ZZPK8FRPJ2"
+            appId: "1:703521653990:web:a92dc5a49af558aa436727"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -366,12 +354,16 @@
         window.openAddModal = () => document.getElementById('add-modal').classList.add('active');
         window.closeModal = (id) => document.getElementById(id).classList.remove('active');
 
+        // ИСПРАВЛЕНО: Безопасная отправка
         window.submitNewTask = async () => {
-            const title = document.getElementById('new-task-title').value.trim();
-            const desc = document.getElementById('new-task-desc').value.trim();
+            const titleInput = document.getElementById('new-task-title');
+            const descInput = document.getElementById('new-task-desc');
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim();
+            
             if (!title || !desc) return alert('Пожалуйста, заполните все поля.');
 
-            const btn = event.target;
+            const btn = document.getElementById('submit-task-btn');
             const originalText = btn.innerText;
             btn.innerText = 'Отправка...';
             btn.disabled = true;
@@ -384,13 +376,14 @@
                     authorId: myUserId,
                     timestamp: Date.now()
                 });
-                document.getElementById('new-task-title').value = '';
-                document.getElementById('new-task-desc').value = '';
+                titleInput.value = '';
+                descInput.value = '';
                 closeModal('add-modal');
             } catch (e) {
-                console.error(e);
-                alert('Ошибка при отправке.');
+                console.error("Ошибка Firebase:", e);
+                alert('Ошибка! Проверь правила Firestore Rules (нужно allow read, write: if true;)');
             } finally {
+                // Кнопка отвисает в любом случае
                 btn.innerText = originalText;
                 btn.disabled = false;
             }
@@ -402,12 +395,14 @@
             let statusText = '';
             
             if (task.status === 'in_progress') {
-                statusText = '<div class="task-status">Выполняется</div>';
+                statusText = '<div class="task-status">⏳ В процессе</div>';
+            } else if (task.status === 'completed') {
+                statusText = '<div class="task-status" style="color:var(--text-main); background:var(--surface-hover);">✓ Выполнено</div>';
             }
             
             let imgHtml = '';
             if (task.status === 'completed' && task.imageUrl) {
-                imgHtml = `<img src="${task.imageUrl}" class="task-img" alt="Фото результата">`;
+                imgHtml = `<img src="${task.imageUrl}" class="task-img">`;
             }
 
             div.innerHTML = `
@@ -443,16 +438,12 @@
             }
 
             if (filteredTasks.length === 0) {
-                container.innerHTML = '<div class="empty-state">Нет доступных заданий</div>';
+                container.innerHTML = '<div class="empty-state">Пусто</div>';
                 return;
             }
             
-            // Сортировка: новые сверху
             filteredTasks.sort((a, b) => b.timestamp - a.timestamp);
-
-            filteredTasks.forEach(task => {
-                container.appendChild(createTaskElement(task));
-            });
+            filteredTasks.forEach(task => container.appendChild(createTaskElement(task)));
         }
 
         window.openTaskFullscreen = (task) => {
@@ -471,7 +462,7 @@
             photoName.innerText = '';
 
             if (task.status === 'approved') {
-                btnContainer.innerHTML = `<button class="btn btn-primary" onclick="startTask('${task.id}')">Приступить к выполнению</button>`;
+                btnContainer.innerHTML = `<button class="btn btn-primary" onclick="startTask('${task.id}')">Приступить</button>`;
             } else if (task.status === 'in_progress' && task.assigneeId === myUserId) {
                 photoArea.style.display = 'block';
                 
@@ -482,11 +473,11 @@
                 };
 
                 btnContainer.innerHTML = `
-                    <button class="btn btn-primary" onclick="finishTask('${task.id}')">Завершить задание</button>
+                    <button class="btn btn-primary" id="finish-btn" onclick="finishTask('${task.id}')">Завершить</button>
                     <button class="btn btn-danger" onclick="cancelTask('${task.id}')">Отказаться</button>
                 `;
             } else if (task.status === 'completed') {
-                btnContainer.innerHTML = `<button class="btn" onclick="closeModal('task-modal')">Закрыть</button>`;
+                btnContainer.innerHTML = `<button class="btn" onclick="closeModal('task-modal')">Назад</button>`;
             }
 
             document.getElementById('task-modal').classList.add('active');
@@ -506,9 +497,11 @@
             const fileInput = document.getElementById('tm-photo-input');
             const file = fileInput.files[0];
             
-            if (!file) return alert('Пожалуйста, прикрепите фото результата работы.');
+            if (!file) return alert('Прикрепи скриншот!');
             
-            document.getElementById('tm-buttons-container').innerHTML = '<button class="btn" disabled>Загрузка файла...</button>';
+            const btn = document.getElementById('finish-btn');
+            btn.innerText = 'Загрузка...';
+            btn.disabled = true;
 
             try {
                 const storageReference = ref(storage, 'completed_tasks/' + taskId + '_' + file.name);
@@ -523,18 +516,19 @@
                 closeModal('task-modal');
             } catch (e) {
                 console.error(e);
-                alert('Ошибка при загрузке фото.');
-                closeModal('task-modal');
+                alert('Ошибка при загрузке. Проверь правила Storage!');
+                btn.innerText = 'Завершить';
+                btn.disabled = false;
             }
         };
 
         window.promptAdmin = () => {
-            const pass = prompt("Доступ для администратора:");
+            const pass = prompt("Пароль админа:");
             if (pass === "050114") {
                 document.getElementById('admin-modal').classList.add('active');
                 renderAdmin();
             } else if (pass !== null) {
-                alert("Неверный пароль.");
+                alert("Неверно");
             }
         };
 
@@ -544,21 +538,20 @@
             const pendingTasks = window.allTasks.filter(t => t.status === 'pending');
             
             if(pendingTasks.length === 0) {
-                container.innerHTML = '<div class="empty-state">Нет новых заданий на проверке</div>';
+                container.innerHTML = '<div class="empty-state">Нет заданий</div>';
                 return;
             }
 
             pendingTasks.forEach(task => {
                 const div = document.createElement('div');
-                div.style.border = '1px solid var(--border-color)';
+                div.style.background = 'var(--surface)';
                 div.style.padding = '20px';
                 div.style.borderRadius = 'var(--radius)';
-                div.style.background = '#fafafa';
                 
                 div.innerHTML = `
-                    <h3 style="margin-top:0; font-size:18px;">${task.title}</h3>
-                    <p style="font-size:14px; color:var(--text-secondary); line-height:1.5;">${task.description}</p>
-                    <div style="display:flex; gap:12px; margin-top:20px;">
+                    <h3 style="margin-top:0;">${task.title}</h3>
+                    <p style="color:var(--text-secondary);">${task.description}</p>
+                    <div style="display:flex; gap:12px; margin-top:16px;">
                         <button class="btn btn-primary" style="margin:0;" onclick="approveTask('${task.id}')">Одобрить</button>
                         <button class="btn btn-danger" style="margin:0;" onclick="deleteTask('${task.id}')">Удалить</button>
                     </div>
@@ -572,9 +565,7 @@
         };
         
         window.deleteTask = async (taskId) => {
-            if(confirm('Вы уверены, что хотите удалить это задание?')) {
-                await deleteDoc(doc(db, "tasks", taskId));
-            }
+            if(confirm('Удалить?')) await deleteDoc(doc(db, "tasks", taskId));
         };
     </script>
 </body>
